@@ -1,5 +1,13 @@
 {
   "name": "@app/database",
   "private": "true",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "drizzle-kit": "^0.31.8"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.5.0",
+    "drizzle-orm": "^0.45.1"
+  }
 }
