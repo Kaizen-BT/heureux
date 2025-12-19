@@ -9,5 +9,13 @@
   "dependencies": {
     "better-sqlite3": "^12.5.0",
     "drizzle-orm": "^0.45.1"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "npm run generate && tsc",
+    "migrate": "npx drizzle-kit migrate",
+    "generate": "npx drizzle-kit generate",
+    "push": "npx drizzle-kit push",
+    "pull": "npx drizzle-kit  pull"
   }
 }
