@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import mapWorkspaces from "@npmcli/map-workspaces";
 import type { Configuration } from "app-builder-lib";
 
@@ -16,6 +16,11 @@ export default async (): Promise<Configuration> => {
     directories: {
       output: "dist",
       buildResources: "buildResources",
+    },
+    extraResources: {
+      // Database migrations for prod
+      from: resolve("packages/database/drizzle"),
+      to: "drizzle",
     },
     generateUpdatesFilesForAllChannels: true,
     linux: {
