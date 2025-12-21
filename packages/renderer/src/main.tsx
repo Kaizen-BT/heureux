@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./routes/App.tsx";
+import { App } from "./routes/App.tsx";
 import { createHashRouter, NavLink, RouterProvider } from "react-router";
 import { StrictMode } from "react";
 

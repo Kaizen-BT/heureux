@@ -24,9 +24,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    // UI Package
+    // Shadcn
+
     "paths": {
-      "@workspace/ui/*": ["../../packages/ui/src/*"]
+      "@workspace/ui/*": ["./src/*"]
     }
   },
   "include": ["src"]
