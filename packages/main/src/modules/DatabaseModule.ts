@@ -30,7 +30,7 @@ class ApplicationDatabase implements AppModule {
     );
 
     // Connect and applying migrations to Database
-    const db = initDatabase({ sqliteFilePath, migrationsPath });
+    const db = await initDatabase({ sqliteFilePath, migrationsPath });
 
     await app.whenReady();
   }
