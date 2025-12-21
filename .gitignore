@@ -59,4 +59,4 @@ thumbs.db
 .turbo
 
 # Development Database
-.sqlite
+*.sqlite
