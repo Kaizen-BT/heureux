@@ -1,10 +1,27 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./routes/App.tsx";
+import { createHashRouter, NavLink, RouterProvider } from "react-router";
+import { StrictMode } from "react";
 
-createRoot(document.getElementById('root')!).render(
+const router = createHashRouter([
+  {
+    path: "/",
+    Component: App,
+  },
+  {
+    path: "/test",
+    element: (
+      <div>
+        <p>This is the test route</p>
+        <NavLink to={"/"}>Back home</NavLink>
+      </div>
+    ),
+  },
+]);
+
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <RouterProvider router={router} />
+  </StrictMode>
+);
