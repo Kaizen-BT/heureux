@@ -40,3 +40,20 @@ const baseShape = {
 export const projects = sqliteTable("projects", {
   ...baseShape,
 });
+
+export const milestones = sqliteTable("milestones", {
+  ...baseShape,
+  projectId: integer()
+    .references(() => projects.id, { onDelete: "cascade" })
+    .notNull(),
+});
+
+export const tasks = sqliteTable("tasks", {
+  ...baseShape,
+  projectId: integer()
+    .references(() => projects.id, { onDelete: "cascade" })
+    .notNull(),
+  milestoneId: integer().references(() => milestones.id, {
+    onDelete: "cascade",
+  }),
+});
