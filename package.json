@@ -25,7 +25,8 @@
     "create-renderer": "cd packages && node ./integrate-renderer/create-renderer.js",
     "integrate-renderer": "npm start --workspace @app/integrate-renderer",
     "init": "npm run create-renderer && npm run integrate-renderer && npm install",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "asar:linux-list": "npx asar list dist/linux-unpacked/resources/app.asar"
   },
   "devDependencies": {
     "@npmcli/map-workspaces": "5.0.3",
