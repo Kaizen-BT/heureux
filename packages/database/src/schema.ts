@@ -3,7 +3,7 @@
  * TODO: Consider refactor to separate tables out
  */
 
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
 
 // --- Helpers ---
@@ -57,3 +57,31 @@ export const tasks = sqliteTable("tasks", {
     onDelete: "cascade",
   }),
 });
+
+// --- Relations ---
+
+export const projectsRelations = relations(projects, ({ many }) => ({
+  tasks: many(tasks),
+  milestones: many(milestones),
+}));
+
+export const milestonesRelations = relations(milestones, ({ one, many }) => ({
+  project: one(projects, {
+    fields: [milestones.projectId],
+    references: [projects.id],
+  }),
+
+  tasks: many(tasks),
+}));
+
+export const tasksRelations = relations(tasks, ({ one }) => ({
+  project: one(projects, {
+    fields: [tasks.projectId],
+    references: [projects.id],
+  }),
+
+  milestone: one(milestones, {
+    fields: [tasks.milestoneId],
+    references: [milestones.id],
+  }),
+}));
