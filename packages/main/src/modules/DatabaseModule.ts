@@ -1,7 +1,6 @@
 import path from "node:path";
 import type { AppModule } from "../AppModule.js";
 import { ModuleContext } from "../ModuleContext.js";
-import { existsSync } from "node:fs";
 
 /**
  * ApplicationDatabase module responsible for applying migrations
@@ -24,10 +23,12 @@ class ApplicationDatabase implements AppModule {
         break;
     }
 
-    console.log(existsSync(migrationsPath));
+    // Debugging information
     console.log(
-      `Database Path: ${databasePath}\nMigrations Path: ${migrationsPath}`
+      `\n\nDatabase Path: ${databasePath}\nMigrations Path: ${migrationsPath}\n\n`
     );
+
+    // Connect to database
 
     await app.whenReady();
   }
