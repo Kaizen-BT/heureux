@@ -1,6 +1,6 @@
 {
   "name": "@app/database",
-  "private": "true",
+  "private": true,
   "type": "module",
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
@@ -17,5 +17,12 @@
     "generate": "npx drizzle-kit generate",
     "push": "npx drizzle-kit push",
     "pull": "npx drizzle-kit  pull"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "require": "./dist/index.js"
+    }
   }
 }

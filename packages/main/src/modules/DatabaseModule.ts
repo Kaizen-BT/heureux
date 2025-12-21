@@ -1,6 +1,7 @@
 import path from "node:path";
 import type { AppModule } from "../AppModule.js";
 import { ModuleContext } from "../ModuleContext.js";
+import { initDatabase } from "@app/database";
 
 /**
  * ApplicationDatabase module responsible for applying migrations
@@ -8,27 +9,28 @@ import { ModuleContext } from "../ModuleContext.js";
  */
 class ApplicationDatabase implements AppModule {
   async enable({ app }: ModuleContext): Promise<void> {
-    let databasePath, migrationsPath: string;
+    let sqliteFilePath, migrationsPath: string;
 
     // Determine paths based on mode
     switch (app.isPackaged) {
       case true:
-        databasePath = path.join(app.getPath("userData"), "database.sqlite");
+        sqliteFilePath = path.join(app.getPath("userData"), "database.sqlite");
         migrationsPath = path.join(process.resourcesPath, "drizzle");
         break;
 
       case false:
-        databasePath = path.join(process.cwd(), "dev.sqlite");
+        sqliteFilePath = path.join(process.cwd(), "dev.sqlite");
         migrationsPath = path.resolve("packages/database/drizzle");
         break;
     }
 
     // Debugging information
     console.log(
-      `\n\nDatabase Path: ${databasePath}\nMigrations Path: ${migrationsPath}\n\n`
+      `\n\nDatabase Path: ${sqliteFilePath}\nMigrations Path: ${migrationsPath}\n\n`
     );
 
-    // Connect to database
+    // Connect and applying migrations to Database
+    const db = initDatabase({ sqliteFilePath, migrationsPath });
 
     await app.whenReady();
   }
