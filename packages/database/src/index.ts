@@ -35,12 +35,12 @@ export async function initDatabase({
     driver.pragma("journal_mode = WAL");
 
     // Setup ORM and apply migrations
-    const db = drizzle(driver, { schema });
+    const db = drizzle<typeof schema>(driver, { schema });
     migrate(db, { migrationsFolder: migrationsPath });
 
     return db;
-  } catch (_) {
-    console.error("Failed to initialize database");
-    throw new Response("Database initialization failed");
+  } catch (error) {
+    console.error(error, "Failed to initialize database");
+    throw new Response("Database error occurred");
   }
 }
