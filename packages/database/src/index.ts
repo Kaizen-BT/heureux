@@ -40,6 +40,7 @@ export async function initDatabase({
 
     return db;
   } catch (_) {
+    console.error("Failed to initialize database");
     throw new Response("Database initialization failed");
   }
 }
