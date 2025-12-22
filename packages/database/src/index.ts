@@ -15,17 +15,19 @@ interface SetupDatabaseProps {
   migrationsPath: string;
 }
 
+export type AppDatabase = BetterSQLite3Database<typeof schema>;
+
 /**
  * Sets up the driver for the SQLite database and applies any migrations
  * needed
  *
  * @param {SetupDatabaseProps} props
- * @returns {Promise<BetterSQLite3Database<typeof schema>>}
+ * @returns {Promise<AppDatabase>}
  */
-export async function initDatabase({
+export async function connectDatabase({
   sqliteFilePath,
   migrationsPath,
-}: SetupDatabaseProps): Promise<BetterSQLite3Database<typeof schema>> {
+}: SetupDatabaseProps): Promise<AppDatabase> {
   // Driver & Setups
   try {
     const driver = new Database(sqliteFilePath);
@@ -44,3 +46,7 @@ export async function initDatabase({
     throw new Response("Database error occurred");
   }
 }
+
+// Barrel Exports
+
+export * from "./queries.js";

@@ -1,7 +1,7 @@
 import path from "node:path";
 import type { AppModule } from "../AppModule.js";
 import { ModuleContext } from "../ModuleContext.js";
-import { initDatabase } from "@app/database";
+import { connectDatabase, getAllProjects } from "@app/database";
 
 /**
  * ApplicationDatabase module responsible for applying migrations
@@ -30,7 +30,10 @@ class ApplicationDatabase implements AppModule {
     );
 
     // Connect and applying migrations to Database
-    const db = await initDatabase({ sqliteFilePath, migrationsPath });
+    const db = await connectDatabase({ sqliteFilePath, migrationsPath });
+
+    // Test Query
+    console.log(await getAllProjects({ database: db }));
 
     await app.whenReady();
   }
