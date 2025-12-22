@@ -12,5 +12,12 @@
       "import": "./src/contract.ts",
       "require": "./dist/contract.js"
     }
+  },
+  "dependencies": {
+    "@app/database": "*",
+    "@app/utils": "*"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
   }
 }
