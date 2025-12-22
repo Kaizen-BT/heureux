@@ -7,6 +7,11 @@ import {
   getAllProjects,
   getAllTasks,
 } from "@app/database";
+import {
+  mainHandleAPI,
+  initializeQueryDriver,
+} from "../utils/ipcMainWrapper.js";
+import { APIContract } from "@app/api";
 
 /**
  * ApplicationDatabase module responsible for applying migrations
@@ -34,13 +39,11 @@ class ApplicationDatabase implements AppModule {
       `\n\nDatabase Path: ${sqliteFilePath}\nMigrations Path: ${migrationsPath}\n\n`
     );
 
-    // Connect and applying migrations to Database
+    // Connect, apply migrations, and initialize query driver
     const db = await connectDatabase({ sqliteFilePath, migrationsPath });
+    const queryDriver = initializeQueryDriver({ database: db });
 
-    // Test Query runners
-    console.log("Projects:", await getAllProjects({ database: db }));
-    console.log("Milestones:", await getAllMilestones({ database: db }));
-    console.log("Tasks:", await getAllTasks({ database: db }));
+    mainHandleAPI("getAllMilestones", queryDriver.getAllTasks);
 
     await app.whenReady();
   }

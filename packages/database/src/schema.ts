@@ -16,13 +16,14 @@ const dateWithDefault = (name: string) =>
 const dateWithDefaultNN = (name: string = "dateCol") =>
   dateWithDefault(name).notNull();
 
+const nameField = (name: string) => text().notNull().default(name);
+
 // --- Raw Shapes ---
 
 const baseShape = {
   id: integer().primaryKey({ autoIncrement: true }),
 
   // Entity descriptors
-  name: text().notNull().default("An Awesome Project"),
   description: text().default("A cool description"),
   urgency: text({ enum: ["Non-Critical", "Important", "Critical"] })
     .notNull()
@@ -41,10 +42,12 @@ const baseShape = {
 
 export const projects = sqliteTable("projects", {
   ...baseShape,
+  name: nameField("Awesome Project"),
 });
 
 export const milestones = sqliteTable("milestones", {
   ...baseShape,
+  name: nameField("An interesting milestone"),
   projectId: integer()
     .references(() => projects.id, { onDelete: "cascade" })
     .notNull(),
@@ -52,6 +55,7 @@ export const milestones = sqliteTable("milestones", {
 
 export const tasks = sqliteTable("tasks", {
   ...baseShape,
+  name: nameField("An exciting task"),
   projectId: integer()
     .references(() => projects.id, { onDelete: "cascade" })
     .notNull(),
