@@ -11,12 +11,13 @@ import { ipcMain } from "electron";
  * A wrapper around ipcMain.handle that registers a channel and an event
  * listener with the channel and types inferred from the APIContract
  */
+
 export function mainHandleAPI<K extends keyof APIContract>(
   channel: K,
-  handler: (...args: Parameters<APIContract[K]>) => ReturnType<APIContract[K]>
+  handler: (args: Parameters<APIContract[K]>[0]) => ReturnType<APIContract[K]>
 ) {
-  ipcMain.handle(channel, async (_, args) => {
-    return await handler(...(args as Parameters<APIContract[K]>));
+  ipcMain.handle(channel, async (_event, args) => {
+    return handler(args);
   });
 }
 

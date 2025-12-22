@@ -9,4 +9,4 @@ const api: APIContract = {
   getAllTasks: () => rendererInvokeAPI("getAllTasks"),
 };
 
-export { sha256sum, versions, api, APIContract };
+export { sha256sum, versions, api };

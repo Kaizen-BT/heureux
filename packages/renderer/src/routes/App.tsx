@@ -19,10 +19,18 @@ export async function HomeLoader(_: LoaderFunctionArgs) {
 }
 
 export function App() {
+  const { projects, milestones, tasks } = useLoaderData<typeof HomeLoader>();
   return (
     <>
       <Example />
       <p>Projects</p>
+      {projects.length ? <p>A Project exists</p> : <p>No Projects </p>}
+
+      <p>Milestones</p>
+      {milestones.length ? <p>A Milestone exists</p> : <p>No Milestones</p>}
+
+      <p>Tasks</p>
+      {tasks.length ? <p>A Task exists</p> : <p>No Tasks</p>}
     </>
   );
 }
