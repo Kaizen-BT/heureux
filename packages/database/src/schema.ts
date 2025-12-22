@@ -5,6 +5,8 @@
 
 import { relations, sql } from "drizzle-orm";
 import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
+import { createSelectSchema } from "drizzle-zod";
+import z from "zod";
 
 // --- Helpers ---
 
@@ -85,3 +87,15 @@ export const tasksRelations = relations(tasks, ({ one }) => ({
     references: [milestones.id],
   }),
 }));
+
+// --- Schemas ---
+
+export const ProjectSelectSchema = createSelectSchema(projects);
+export const TaskSelectSchema = createSelectSchema(tasks);
+export const MilestoneSelectSchema = createSelectSchema(milestones);
+
+// --- Types ---
+
+export type ProjectSelect = z.infer<typeof ProjectSelectSchema>;
+export type TaskSelect = z.infer<typeof TaskSelectSchema>;
+export type MilestoneSelect = z.infer<typeof MilestoneSelectSchema>;
