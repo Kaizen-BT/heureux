@@ -1,12 +1,7 @@
 import path from "node:path";
 import type { AppModule } from "../AppModule.js";
 import { ModuleContext } from "../ModuleContext.js";
-import {
-  connectDatabase,
-  getAllMilestones,
-  getAllProjects,
-  getAllTasks,
-} from "@app/database";
+import { connectDatabase } from "@app/database";
 import {
   mainHandleAPI,
   initializeQueryDriver,
