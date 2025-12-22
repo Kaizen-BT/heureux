@@ -43,9 +43,22 @@ class ApplicationDatabase implements AppModule {
     const db = await connectDatabase({ sqliteFilePath, migrationsPath });
     const queryDriver = initializeQueryDriver({ database: db });
 
-    mainHandleAPI("getAllMilestones", queryDriver.getAllTasks);
+    // Register query runners to their channels
+    this.registerDriver(queryDriver);
 
     await app.whenReady();
+  }
+
+  /**
+   * Registers each query runner to their own distinct channel
+   * @param {APIContract} driver
+   */
+  private registerDriver(driver: APIContract) {
+    (Object.keys(driver) as Array<keyof APIContract>).forEach((channel) => {
+      console.log(`Channel: ${channel}\nHandler: ${driver[channel].name}\n\n`);
+
+      mainHandleAPI(channel, driver[channel]);
+    });
   }
 }
 

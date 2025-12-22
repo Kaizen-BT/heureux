@@ -22,14 +22,16 @@ export function mainHandleAPI<K extends keyof APIContract>(
 
 /**
  * Initializes the Query driver which is an object that abstracts the
- * Database query functions
+ * Database query functions.
+ *
+ * It also registers the query runners to their appropriate channels
  */
 export function initializeQueryDriver({
   database,
 }: {
   database: AppDatabase;
 }): APIContract {
-  const driver = {
+  return {
     // Projects
     getAllProjects: () => getAllProjects({ database }),
 
@@ -39,6 +41,4 @@ export function initializeQueryDriver({
     // Tasks
     getAllTasks: () => getAllTasks({ database }),
   } satisfies APIContract;
-
-  return driver;
 }
