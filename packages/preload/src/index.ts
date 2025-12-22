@@ -1,12 +1,12 @@
 import { sha256sum } from "./nodeCrypto.js";
 import { versions } from "./versions.js";
 import { rendererInvokeAPI } from "./ipcRendererWrapper.js";
-import { APIContract } from "@app/api/src/contract.js";
+import type { APIContract } from "@app/api";
 
-const api = {
+const api: APIContract = {
   getAllProjects: () => rendererInvokeAPI("getAllProjects"),
   getAllMilestones: () => rendererInvokeAPI("getAllMilestones"),
   getAllTasks: () => rendererInvokeAPI("getAllTasks"),
-} satisfies APIContract;
+};
 
-export { sha256sum, versions, api };
+export { sha256sum, versions, api, APIContract };
